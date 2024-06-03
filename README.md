@@ -24,7 +24,7 @@ $ npm install
 
 ```
 
-You can run the following to start the application
+You can run the following command to start the application
 
 ```
 $ npm run dev
