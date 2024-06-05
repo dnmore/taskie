@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TaskList from "./taskList";
 import AddTask from "./addTask";
 
+
+const storedTasks = () => JSON.parse(localStorage.getItem("tasks")) || []
 export default function TaskManager() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(storedTasks());
   const [selectedPriority, setSelectedPriority] = useState("all");
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  
 
   function handleAddTask({ text, priority, date }) {
     setTasks([
