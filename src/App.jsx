@@ -34,6 +34,10 @@ export default function App() {
     setTasks(
       tasks.map((t, i) => {
         if (i === id) {
+          if (!task.text || !task.date) {
+            alert("field can't be empty");
+            return t;
+          }
           return task;
         } else {
           return t;

@@ -10,6 +10,7 @@ export default function Task({ task, onChange, onDelete, index }) {
           <input
             type="text"
             name="text"
+            required
             className="w-full max-w-80 rounded-md border border-gray-300 py-1.5 px-7 text-gray-900 text-base sm:text-sm sm:leading-6"
             value={task.text}
             onChange={(e) => {
@@ -49,6 +50,7 @@ export default function Task({ task, onChange, onDelete, index }) {
           <input
             type="date"
             name="date"
+            required
             className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 text-gray-900  sm:text-sm sm:leading-6"
             value={task.date}
             onChange={(e) => {
