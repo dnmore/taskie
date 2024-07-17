@@ -1,97 +1,53 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TaskList from "./taskList";
-import AddTask from "./addTask";
+import { MdFilterList } from "react-icons/md";
 
-
-const storedTasks = () => JSON.parse(localStorage.getItem("tasks")) || []
-export default function TaskManager() {
-  const [tasks, setTasks] = useState(storedTasks());
+export default function TaskManager(tasks, onDeleteTask, onChangeTask) {
   const [selectedPriority, setSelectedPriority] = useState("all");
 
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  
-
-  function handleAddTask({ text, priority, date }) {
-    setTasks([
-      ...tasks,
-      {
-        text: text,
-        priority: priority,
-        date: date,
-        done: false,
-      },
-    ]);
-  }
-
-  function handleDeleteTask(id) {
-    setTasks(tasks.filter((el, i) => i !== id));
-  }
-
-  function handleChangeTask(task, id) {
-    setTasks(
-      tasks.map((t, i) => {
-        if (i === id) {
-          return task;
-        } else {
-          return t;
-        }
-      })
-    );
-  }
-
   return (
-    <div className="min-h-full">
-      <header className="bg-indigo-600 shadow">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-white">
-            Dashboard
-          </h1>
-        </div>
-      </header>
-      <main>
-        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          <AddTask onAddTask={handleAddTask} />
-
-          <div className="flex flex-col md:flex-row justify-center items-center gap-8 py-8">
-            <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-              <label htmlFor="selectedPriority">Filter by priority</label>
-              <select
-                name="selectedPriority"
-                className="h-full rounded-md border-0 py-1.5 pl-7 pr-20 bg-transparent  text-gray-500 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                value={selectedPriority}
-                onChange={(e) => setSelectedPriority(e.target.value)}
-              >
-                <option value="all">all</option>
-                <option value="high">high</option>
-                <option value="medium">medium</option>
-                <option value="low">low</option>
-              </select>
-            </div>
+    <div>
+      <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <div className="fixed w-full top-24 left-16 h-10 flex items-center text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-slate-900">
+          <div className="flex items-center gap-4 text-white">
+            <MdFilterList className="text-lg" />
+            <label htmlFor="selectedPriority" className="uppercase">
+              filter by priority
+            </label>
+            <select
+              name="selectedPriority"
+              className="h-8 w-30 border-0 py-1.5 pl-7 bg-white  text-gray-500 uppercase outline-none "
+              value={selectedPriority}
+              onChange={(e) => setSelectedPriority(e.target.value)}
+            >
+               <option value="all">all</option>
+              <option value="high">high</option>
+              <option value="medium">medium</option>
+              <option value="low">low</option>
+            </select>
           </div>
-          {selectedPriority && selectedPriority !== "all" ? (
-            <div>
-              <TaskList
-                tasks={tasks.filter((task) =>
-                  task.priority.includes(selectedPriority)
-                )}
-                onDeleteTask={handleDeleteTask}
-                onChangeTask={handleChangeTask}
-              />
-            </div>
-          ) : (
-            <div>
-              <TaskList
-                tasks={tasks}
-                onDeleteTask={handleDeleteTask}
-                onChangeTask={handleChangeTask}
-              />
-            </div>
-          )}
         </div>
-      </main>
+
+        {selectedPriority && selectedPriority !== "all" ? (
+          <div>
+            <TaskList
+              tasks={tasks.filter((task) =>
+                task.priority.includes(selectedPriority)
+              )}
+              onDeleteTask={onDeleteTask}
+              onChangeTask={onChangeTask}
+            />
+          </div>
+        ) : (
+          <div>
+            <TaskList
+              tasks={tasks}
+              onDeleteTask={onDeleteTask}
+              onChangeTask={onChangeTask}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

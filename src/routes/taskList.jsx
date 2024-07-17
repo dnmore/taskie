@@ -1,14 +1,11 @@
-import Task from "./task";
+import Task from "../components/task";
 
 export default function TaskList({ tasks, onDeleteTask, onChangeTask }) {
   return (
-    <>
-      <ul className="py-6">
+    <div className="mt-24 ml-24 py-1">
+      <ul>
         {tasks.map((task, index) => (
-          <li
-            key={index}
-            className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 shadow-lg my-5 bg-indigo-100 rounded-md"
-          >
+          <li key={index} className="my-8">
             <Task
               task={task}
               onChange={onChangeTask}
@@ -18,6 +15,6 @@ export default function TaskList({ tasks, onDeleteTask, onChangeTask }) {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }

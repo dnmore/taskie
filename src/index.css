@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 * {
-  font-family: "PT Sans", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
-h1 {
-  font-family: "Questrial", sans-serif;
-}
+

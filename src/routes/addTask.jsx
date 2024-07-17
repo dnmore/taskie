@@ -1,18 +1,24 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AddTask({ onAddTask }) {
   const [text, setText] = useState("");
   const [priority, setPriority] = useState("high");
   const [date, setDate] = useState("");
+  const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+    <div className="px-5 py-8 flex flex-col gap-8 mt-24 ml-24">
+      <p className="text-sm leading-none text-slate-900 uppercase">
+        Create New Task
+      </p>
+
       <div>
         <input
           type="text"
           name="text"
-          placeholder="enter task"
-          className="w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 shadow-lg placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          placeholder="Enter Task"
+          className="w-full max-w-80 rounded-md border border-gray-300 py-1.5 px-7 text-gray-900   placeholder:text-gray-400 sm:text-sm sm:leading-6"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -21,7 +27,7 @@ export default function AddTask({ onAddTask }) {
       <div>
         <select
           name="priority"
-          className="h-full rounded-md border-0 py-1.5 pl-7 pr-20 bg-transparent  text-gray-500 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+          className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 uppercase text-gray-900  placeholder:text-gray-400  sm:text-sm sm:leading-6"
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
         >
@@ -30,13 +36,12 @@ export default function AddTask({ onAddTask }) {
           <option value="low">low</option>
         </select>
       </div>
-      
 
       <div>
         <input
           type="date"
           name="date"
-          className="w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 shadow-lg placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
@@ -45,13 +50,13 @@ export default function AddTask({ onAddTask }) {
         onClick={() => {
           onAddTask({ text, priority, date });
           setText("");
+          navigate("/");
         }}
         type="submit"
-        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="w-28 h-8 uppercase font-medium tracking-wider bg-blue-500 text-white hover:opacity-80 "
       >
-        ADD
+        Add
       </button>
-      
     </div>
   );
 }
