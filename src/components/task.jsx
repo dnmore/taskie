@@ -2,7 +2,9 @@ import { useState } from "react";
 
 export default function Task({ task, onChange, onDelete, index }) {
   const [isEditing, setIsEditing] = useState(false);
+
   let content;
+
   if (isEditing) {
     content = (
       <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-2">
@@ -91,36 +93,35 @@ export default function Task({ task, onChange, onDelete, index }) {
               );
             }}
           />
-          <p className="text-slate-700 capitalize"> {task.text}</p>
+          <p className="text-slate-700 capitalize text-sm"> {task.text}</p>
         </div>
 
-        <p className="uppercase text-green-500 ">
-          <span className="text-slate-700   text-sm uppercase">priority: </span>{" "}
+        <p className="capitalize text-sm text-slate-700    ">
+          <span>priority: </span>
           {task.priority}
         </p>
 
-        <p className=" text-green-500">
-          <span className="  text-slate-700 text-sm uppercase">due date: </span>
+        <p className="text-sm text-slate-700 capitalize">
+          <span>due date: </span>
 
           {task.date}
         </p>
         <div className="flex gap-2">
-           <button
-          type="button"
-          className="w-28 h-8 uppercase font-medium tracking-wider bg-yellow-500 text-white hover:opacity-80"
-          onClick={() => setIsEditing(true)}
-        >
-          Update
-        </button>
-        <button
-          type="button"
-          className="w-28 h-8 uppercase font-medium tracking-wider bg-red-500 text-white hover:opacity-80"
-          onClick={() => onDelete(index)}
-        >
-          Delete
-        </button>
+          <button
+            type="button"
+            className="w-28 h-8 uppercase font-medium tracking-wider bg-yellow-500 text-white hover:opacity-80"
+            onClick={() => setIsEditing(true)}
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            className="w-28 h-8 uppercase font-medium tracking-wider bg-red-500 text-white hover:opacity-80"
+            onClick={() => onDelete(index)}
+          >
+            Delete
+          </button>
         </div>
-       
       </div>
     );
   }

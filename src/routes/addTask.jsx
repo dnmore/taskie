@@ -10,6 +10,7 @@ const defaultFormFields = {
 export default function AddTask({ onAddTask }) {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { text, priority, date } = formFields;
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const resetFormFields = () => {
@@ -18,8 +19,8 @@ export default function AddTask({ onAddTask }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!text || !priority || !date) {
-      alert("please fill up all the fields");
+    if (!text || !date) {
+      setError(true);
       return;
     }
 
@@ -43,7 +44,6 @@ export default function AddTask({ onAddTask }) {
           <input
             type="text"
             name="text"
-            required
             placeholder="Enter Task"
             className="w-full max-w-80 rounded-md border border-gray-300 py-1.5 px-7 text-gray-900   placeholder:text-gray-400 sm:text-sm sm:leading-6"
             value={text}
@@ -54,7 +54,6 @@ export default function AddTask({ onAddTask }) {
         <div>
           <select
             name="priority"
-            required
             className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 uppercase text-gray-900  placeholder:text-gray-400  sm:text-sm sm:leading-6"
             value={priority}
             onChange={handleChange}
@@ -69,18 +68,23 @@ export default function AddTask({ onAddTask }) {
           <input
             type="date"
             name="date"
-            required
             className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
             value={date}
             onChange={handleChange}
           />
         </div>
+
         <button
           type="submit"
-          className="w-28 h-8 uppercase font-medium tracking-wider bg-blue-500 text-white hover:opacity-80 "
+          className="w-28 h-8 mt-3 uppercase font-medium tracking-wider bg-blue-500 text-white hover:opacity-80 "
         >
           Add
         </button>
+        {error && (
+          <p className="text-xs mt-1 text-red-600">
+            please fill up all the fields
+          </p>
+        )}
       </form>
     </div>
   );

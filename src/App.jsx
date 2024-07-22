@@ -9,6 +9,8 @@ const storedTasks = () => JSON.parse(localStorage.getItem("tasks")) || [];
 
 export default function App() {
   const [tasks, setTasks] = useState(storedTasks());
+  const [error, setError] = useState(false)
+
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
