@@ -2,6 +2,7 @@
 
 Task manager application with priorities and status, built using React + Vite.
 Using `localStorage` system to persist task items in the browser storage.
+View live version [here](https://taskie-task-manager.netlify.app/)
 
 ## Features
 
