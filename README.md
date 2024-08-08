@@ -16,6 +16,7 @@ View live version [here](https://taskie-task-manager.netlify.app/)
 
 - `react`, front-end JavaScript library for building user interfaces based on components
 - `tailwindcss`, utility-first CSS framework for rapidly building modern and responsive websites
+- `uuid`, for generating unique task ids when creating items
 
 ## Cloning
 
