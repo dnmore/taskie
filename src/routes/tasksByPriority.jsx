@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useContext } from "react";
-import { MdFilterList } from "react-icons/md";
 import Task from "../components/task";
 import { TasksContext } from "../contexts/TasksContext";
 export default function TasksByPriority() {
@@ -9,9 +8,9 @@ export default function TasksByPriority() {
 
   return (
     <div>
-      <div className="fixed w-full top-24 left-4 h-10 flex items-center text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-slate-900">
+      <div className="fixed w-full top-24 h-10 flex items-center text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-slate-900">
         <div className="flex items-center gap-4 text-white">
-          <MdFilterList className="text-2xl" />
+         
           <label htmlFor="selectedPriority" className="uppercase">
             filter by priority
           </label>
@@ -29,13 +28,13 @@ export default function TasksByPriority() {
         </div>
       </div>
       {selectedPriority && selectedPriority !== "all" ? (
-        <div className="pt-6">
+        <div >
           <div className="mt-24 ml-24 py-1">
             <ul>
               {tasks
                 .filter((task) => task.priority.includes(selectedPriority))
                 .map((task, id) => (
-                  <li key={id} className="my-8">
+                  <li key={id} className="mt-8">
                     <Task task={task} />
                   </li>
                 ))}
@@ -43,11 +42,11 @@ export default function TasksByPriority() {
           </div>
         </div>
       ) : (
-        <div className="pt-6">
+        <div>
           <div className="mt-24 ml-24 py-1">
             <ul>
               {tasks.map((task, id) => (
-                <li key={id} className="my-8">
+                <li key={id} className="mt-8">
                   <Task task={task} />
                 </li>
               ))}

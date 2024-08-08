@@ -10,23 +10,42 @@ export default function Task({ task }) {
 
   if (isEditing) {
     content = (
-      <div className="flex flex-col gap-2">
-        <input
-          type="text"
-          name="text"
-          required
-          className="max-w-80 border border-gray-300 py-1.5 px-7 text-gray-900 text-base sm:text-sm sm:leading-6"
-          value={task.text}
-          onChange={(e) => {
-            dispatch({
-              type: "changed",
-              task: {
-                ...task,
-                text: e.target.value,
-              },
-            });
-          }}
-        />
+      <div className="flex flex-col gap-2 pr-2">
+        <div className="flex flex-col gap-2">
+          <label>
+            <input
+              type="checkbox"
+              name="done"
+              className="h-4 w-4 accent-indigo-600"
+              checked={task.done}
+              onChange={(e) => {
+                dispatch({
+                  type: "changed",
+                  task: {
+                    ...task,
+                    done: e.target.checked,
+                  },
+                });
+              }}
+            />
+          </label>
+          <input
+            type="text"
+            name="text"
+            required
+            className="max-w-80 border border-gray-300 py-1.5 px-7 text-gray-900 text-base sm:text-sm sm:leading-6"
+            value={task.text}
+            onChange={(e) => {
+              dispatch({
+                type: "changed",
+                task: {
+                  ...task,
+                  text: e.target.value,
+                },
+              });
+            }}
+          />
+        </div>
 
         <select
           name="priority"
@@ -75,7 +94,26 @@ export default function Task({ task }) {
   } else {
     content = (
       <div className="flex flex-col gap-2">
-        <p className="text-slate-700 capitalize text-sm"> {task.text}</p>
+        <div className="flex gap-2">
+          <label>
+            <input
+              type="checkbox"
+              name="done"
+              className="h-4 w-4 accent-indigo-600"
+              checked={task.done}
+              onChange={(e) => {
+                dispatch({
+                  type: "changed",
+                  task: {
+                    ...task,
+                    done: e.target.checked,
+                  },
+                });
+              }}
+            />
+          </label>
+          <p className="text-slate-700 capitalize text-sm"> {task.text}</p>
+        </div>
 
         <p className="capitalize text-sm text-slate-700    ">
           <span>priority: </span>
@@ -99,24 +137,6 @@ export default function Task({ task }) {
   }
   return (
     <div className="py-4">
-      <label>
-        <input
-          type="checkbox"
-          name="done"
-          className="h-4 w-4 accent-indigo-600"
-          checked={task.done}
-          onChange={(e) => {
-            dispatch({
-              type: "changed",
-              task: {
-                ...task,
-                done: e.target.checked,
-              },
-            });
-          }}
-        />
-      </label>
-
       {content}
 
       <button
