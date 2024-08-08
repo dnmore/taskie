@@ -44,13 +44,13 @@ export default function AddTask() {
   };
 
   return (
-    <div>
-      <div className="fixed w-full top-24 left-0 h-10 text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-slate-900">
+    <div className="ml-24">
+      <div className="-ml-4 h-10 text-sm gap-2 py-3 bg-slate-900">
         <p className="text-white uppercase">Add Task</p>
       </div>
 
-      <div className="fixed top-44 left-24">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-80">
+      <div className="mt-8">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-80 pr-2">
           <div>
             <input
               type="text"

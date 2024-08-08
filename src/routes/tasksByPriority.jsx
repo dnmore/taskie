@@ -8,8 +8,8 @@ export default function TasksByPriority() {
 
   return (
     <div>
-      <div className="fixed w-full top-24 h-10 flex items-center text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-slate-900">
-        <div className="flex items-center gap-4 text-white">
+      <div className=" h-10 text-sm gap-2 py-3 -ml-4 flex items-center bg-slate-900">
+        <div className="flex items-center ml-24 gap-4 text-white">
          
           <label htmlFor="selectedPriority" className="uppercase">
             filter by priority
@@ -29,7 +29,7 @@ export default function TasksByPriority() {
       </div>
       {selectedPriority && selectedPriority !== "all" ? (
         <div >
-          <div className="mt-24 ml-24 py-1">
+          <div className="ml-24 py-1">
             <ul>
               {tasks
                 .filter((task) => task.priority.includes(selectedPriority))
@@ -43,10 +43,10 @@ export default function TasksByPriority() {
         </div>
       ) : (
         <div>
-          <div className="mt-24 ml-24 py-1">
+          <div className="ml-24">
             <ul>
               {tasks.map((task, id) => (
-                <li key={id} className="mt-8">
+                <li key={id} >
                   <Task task={task} />
                 </li>
               ))}
