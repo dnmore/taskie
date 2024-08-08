@@ -29,7 +29,7 @@ export default function TasksByPriority() {
       </div>
       {selectedPriority && selectedPriority !== "all" ? (
         <div >
-          <div className="ml-24 py-1">
+          <div className="ml-24">
             <ul>
               {tasks
                 .filter((task) => task.priority.includes(selectedPriority))

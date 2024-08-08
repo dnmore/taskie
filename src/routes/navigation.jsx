@@ -12,13 +12,13 @@ import {
 export const Navigation = () => {
   return (
     <div>
-      <div className="w-full mx-auto h-14 bg-slate-900 max-w-7xl px-2 py-3 sm:px-6 lg:px-8">
+      <div className="mx-auto h-14 bg-slate-900 max-w-7xl px-2 py-3 sm:px-6 lg:px-8">
         <h1 className="text-2xl font-semibold text-white">
           Task<span className="text-green-600">i</span>e
           <span className="text-green-500">.</span>
         </h1>
       </div>
-      <div className=" w-full h-10 flex items-center text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-white border-b border-b-slate-200">
+      <div className="h-10 flex items-center text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-white border-b border-b-slate-200">
         <MdOutlineSpaceDashboard /> <p>Dashboard</p>
       </div>
       
