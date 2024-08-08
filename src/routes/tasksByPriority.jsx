@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useContext } from "react";
 import { MdFilterList } from "react-icons/md";
 import Task from "../components/task";
-export default function TasksByPriority({ tasks, onDeleteTask, onChangeTask }) {
+import { TasksContext } from "../contexts/TasksContext";
+export default function TasksByPriority() {
   const [selectedPriority, setSelectedPriority] = useState("all");
+  const tasks = useContext(TasksContext);
 
   return (
     <div>
-      <div className="fixed w-full top-24 left-16 h-10 flex items-center text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-slate-900">
+      <div className="fixed w-full top-24 left-4 h-10 flex items-center text-sm gap-2 px-2 py-3 sm:px-6 lg:px-8 bg-slate-900">
         <div className="flex items-center gap-4 text-white">
-          <MdFilterList className="text-lg" />
+          <MdFilterList className="text-2xl" />
           <label htmlFor="selectedPriority" className="uppercase">
             filter by priority
           </label>
@@ -31,14 +34,9 @@ export default function TasksByPriority({ tasks, onDeleteTask, onChangeTask }) {
             <ul>
               {tasks
                 .filter((task) => task.priority.includes(selectedPriority))
-                .map((task, index) => (
-                  <li key={index} className="my-8">
-                    <Task
-                      task={task}
-                      onChange={onChangeTask}
-                      onDelete={onDeleteTask}
-                      index={index}
-                    />
+                .map((task, id) => (
+                  <li key={id} className="my-8">
+                    <Task task={task} />
                   </li>
                 ))}
             </ul>
@@ -48,14 +46,9 @@ export default function TasksByPriority({ tasks, onDeleteTask, onChangeTask }) {
         <div className="pt-6">
           <div className="mt-24 ml-24 py-1">
             <ul>
-              {tasks.map((task, index) => (
-                <li key={index} className="my-8">
-                  <Task
-                    task={task}
-                    onChange={onChangeTask}
-                    onDelete={onDeleteTask}
-                    index={index}
-                  />
+              {tasks.map((task, id) => (
+                <li key={id} className="my-8">
+                  <Task task={task} />
                 </li>
               ))}
             </ul>

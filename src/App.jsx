@@ -1,82 +1,25 @@
 import { Routes, Route } from "react-router-dom";
+import { TasksProvider } from "./contexts/TasksContext";
+
 import { Navigation } from "./routes/navigation";
-import { useState, useEffect } from "react";
 import TaskList from "./routes/taskList";
 import AddTask from "./routes/addTask";
 import TasksByPriority from "./routes/tasksByPriority";
 
-const storedTasks = () => JSON.parse(localStorage.getItem("tasks")) || [];
+
 
 export default function App() {
-  const [tasks, setTasks] = useState(storedTasks());
-  const [error, setError] = useState(false)
+  
 
-
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  function handleAddTask({ text, priority, date }) {
-    setTasks([
-      ...tasks,
-      {
-        text: text,
-        priority: priority,
-        date: date,
-        done: false,
-      },
-    ]);
-  }
-
-  function handleDeleteTask(id) {
-    setTasks(tasks.filter((el, i) => i !== id));
-  }
-
-  function handleChangeTask(task, id) {
-    setTasks(
-      tasks.map((t, i) => {
-        if (i === id) {
-          if (!task.text || !task.date) {
-            alert("field can't be empty");
-            return t;
-          }
-          return task;
-        } else {
-          return t;
-        }
-      })
-    );
-  }
   return (
-    <>
+    <TasksProvider>
       <Routes>
         <Route path="/" element={<Navigation />}>
-          <Route
-            index
-            element={
-              <TaskList
-                tasks={tasks}
-                onDeleteTask={handleDeleteTask}
-                onChangeTask={handleChangeTask}
-              />
-            }
-          />
-          <Route
-            path="new-task"
-            element={<AddTask onAddTask={handleAddTask} />}
-          />
-          <Route
-            path="tasks-priority"
-            element={
-              <TasksByPriority
-                tasks={tasks}
-                onDeleteTask={handleDeleteTask}
-                onChangeTask={handleChangeTask}
-              />
-            }
-          />
+          <Route index element={<TaskList />} />
+          <Route path="new-task" element={<AddTask />} />
+          <Route path="tasks-priority" element={<TasksByPriority />} />
         </Route>
       </Routes>
-    </>
+    </TasksProvider>
   );
 }

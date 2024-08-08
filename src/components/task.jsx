@@ -1,71 +1,69 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { TasksDispatchContext } from "../contexts/TasksContext";
 
-export default function Task({ task, onChange, onDelete, index }) {
+export default function Task({ task }) {
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useContext(TasksDispatchContext);
 
   let content;
 
   if (isEditing) {
     content = (
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-2">
-        <div>
-          <input
-            type="text"
-            name="text"
-            required
-            className="w-full max-w-80 rounded-md border border-gray-300 py-1.5 px-7 text-gray-900 text-base sm:text-sm sm:leading-6"
-            value={task.text}
-            onChange={(e) => {
-              onChange(
-                {
-                  ...task,
-                  text: e.target.value,
-                },
-                index
-              );
-            }}
-          />
-        </div>
+      <div className="flex flex-col gap-2">
+        <input
+          type="text"
+          name="text"
+          required
+          className="max-w-80 border border-gray-300 py-1.5 px-7 text-gray-900 text-base sm:text-sm sm:leading-6"
+          value={task.text}
+          onChange={(e) => {
+            dispatch({
+              type: "changed",
+              task: {
+                ...task,
+                text: e.target.value,
+              },
+            });
+          }}
+        />
 
-        <div>
-          <select
-            name="priority"
-            className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 uppercase  text-gray-500 text-base sm:text-sm"
-            value={task.priority}
-            onChange={(e) => {
-              onChange(
-                {
-                  ...task,
-                  priority: e.target.value,
-                },
-                index
-              );
-            }}
-          >
-            <option value="high">high</option>
-            <option value="medium">medium</option>
-            <option value="low">low</option>
-          </select>
-        </div>
+        <select
+          name="priority"
+          className="max-w-80 border border-gray-300 py-1.5 pl-7 pr-20 uppercase  text-gray-500 text-base sm:text-sm"
+          value={task.priority}
+          onChange={(e) => {
+            dispatch({
+              type: "changed",
+              task: {
+                ...task,
+                priority: e.target.value,
+              },
+            });
+          }}
+        >
+          <option value="high">high</option>
+          <option value="medium">medium</option>
+          <option value="low">low</option>
+        </select>
 
-        <div>
-          <input
-            type="date"
-            name="date"
-            required
-            className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 text-gray-900  sm:text-sm sm:leading-6"
-            value={task.date}
-            onChange={(e) => {
-              onChange(
-                {
-                  ...task,
-                  date: e.target.value,
-                },
-                index
-              );
-            }}
-          />
-        </div>
+        <input
+          type="date"
+          name="date"
+          required
+          className="max-w-80 border border-gray-300 py-1.5 pl-7 pr-20 text-gray-900  sm:text-sm sm:leading-6"
+          value={task.date}
+          onChange={(e) => {
+            dispatch({
+              type: "changed",
+              task: {
+                ...task,
+                date: e.target.value,
+              },
+            });
+          }}
+        />
+
         <button
           onClick={() => setIsEditing(false)}
           className="w-28 h-8 uppercase font-medium tracking-wider bg-slate-500 text-white hover:opacity-80 "
@@ -76,54 +74,63 @@ export default function Task({ task, onChange, onDelete, index }) {
     );
   } else {
     content = (
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-2">
-        <div className="flex gap-6 items-center">
-          <input
-            type="checkbox"
-            name="done"
-            className="h-4 w-4 accent-indigo-600"
-            checked={task.done}
-            onChange={(e) => {
-              onChange(
-                {
-                  ...task,
-                  done: e.target.checked,
-                },
-                index
-              );
-            }}
-          />
-          <p className="text-slate-700 capitalize text-sm"> {task.text}</p>
-        </div>
+      <div className="flex flex-col gap-2">
+        <p className="text-slate-700 capitalize text-sm"> {task.text}</p>
 
         <p className="capitalize text-sm text-slate-700    ">
           <span>priority: </span>
           {task.priority}
         </p>
-
         <p className="text-sm text-slate-700 capitalize">
           <span>due date: </span>
 
           {task.date}
         </p>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            className="w-28 h-8 uppercase font-medium tracking-wider bg-yellow-500 text-white hover:opacity-80"
-            onClick={() => setIsEditing(true)}
-          >
-            Update
-          </button>
-          <button
-            type="button"
-            className="w-28 h-8 uppercase font-medium tracking-wider bg-red-500 text-white hover:opacity-80"
-            onClick={() => onDelete(index)}
-          >
-            Delete
-          </button>
-        </div>
+
+        <button
+          type="button"
+          className="w-28 h-8 uppercase font-medium tracking-wider bg-yellow-500 text-white hover:opacity-80"
+          onClick={() => setIsEditing(true)}
+        >
+          Update
+        </button>
       </div>
     );
   }
-  return <>{content}</>;
+  return (
+    <div className="py-4">
+      <label>
+        <input
+          type="checkbox"
+          name="done"
+          className="h-4 w-4 accent-indigo-600"
+          checked={task.done}
+          onChange={(e) => {
+            dispatch({
+              type: "changed",
+              task: {
+                ...task,
+                done: e.target.checked,
+              },
+            });
+          }}
+        />
+      </label>
+
+      {content}
+
+      <button
+        type="button"
+        className="w-28 h-8 mt-2 uppercase font-medium tracking-wider bg-red-500 text-white hover:opacity-80"
+        onClick={() =>
+          dispatch({
+            type: "deleted",
+            id: task.id,
+          })
+        }
+      >
+        Delete
+      </button>
+    </div>
+  );
 }

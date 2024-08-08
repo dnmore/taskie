@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { TasksDispatchContext } from "../contexts/TasksContext";
 
 const defaultFormFields = {
   text: "",
@@ -7,8 +9,9 @@ const defaultFormFields = {
   date: "",
 };
 
-export default function AddTask({ onAddTask }) {
+export default function AddTask() {
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const dispatch = useContext(TasksDispatchContext);
   const { text, priority, date } = formFields;
   const [error, setError] = useState(false);
   const navigate = useNavigate();
@@ -24,7 +27,13 @@ export default function AddTask({ onAddTask }) {
       return;
     }
 
-    onAddTask({ text, priority, date });
+    dispatch({
+      type: "added",
+      id: uuidv4(),
+      text: text,
+      priority: priority,
+      date: date,
+    });
     resetFormFields();
     navigate("/");
   };
@@ -45,7 +54,7 @@ export default function AddTask({ onAddTask }) {
             type="text"
             name="text"
             placeholder="Enter Task"
-            className="w-full max-w-80 rounded-md border border-gray-300 py-1.5 px-7 text-gray-900   placeholder:text-gray-400 sm:text-sm sm:leading-6"
+            className="max-w-80 border border-gray-300 py-1.5 px-7 text-gray-900   placeholder:text-gray-400 sm:text-sm sm:leading-6"
             value={text}
             onChange={handleChange}
           />
@@ -54,7 +63,7 @@ export default function AddTask({ onAddTask }) {
         <div>
           <select
             name="priority"
-            className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 uppercase text-gray-900  placeholder:text-gray-400  sm:text-sm sm:leading-6"
+            className="max-w-80 border border-gray-300 py-1.5 pl-7 pr-20 uppercase text-gray-900  placeholder:text-gray-400  sm:text-sm sm:leading-6"
             value={priority}
             onChange={handleChange}
           >
@@ -68,7 +77,7 @@ export default function AddTask({ onAddTask }) {
           <input
             type="date"
             name="date"
-            className="h-full w-60 rounded-md border border-gray-300 py-1.5 pl-7 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
+            className="max-w-80 border border-gray-300 py-1.5 pl-7 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
             value={date}
             onChange={handleChange}
           />
