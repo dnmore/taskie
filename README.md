@@ -1,39 +1,47 @@
-# Taskie
+# Taskie - Task Manager Application
 
-Taskie is a task manager application with priorities and status, built using React + Vite.
-Using `localStorage` system to persist task items in the browser storage.
-View live version [here](https://taskie-task-manager.netlify.app/)
+## Overview
+
+Taskie is a task management application built using React and Vite. It allows users to create, update, delete, and filter tasks with ease. Task data is stored locally using the browser’s localStorage.
+
+ [Live Demo](https://taskie-task-manager.netlify.app/)
 
 ## Features
 
-- create tasks by entering text, priority and due date
-- update text, priority and due date
-- delete task
-- filter tasks by priority
-- mark task as done
+- Create tasks with priority and due dates
+- Update task details (text, priority, due date)
+- Delete tasks
+- Filter tasks by priority
+- Mark tasks as completed
 
-## Stack
+## Tech Stack
 
-- `react`, front-end JavaScript library for building user interfaces based on components
-- `tailwindcss`, utility-first CSS framework for rapidly building modern and responsive websites
-- `uuid`, for generating unique task ids when creating items
+- `React`– Component-based UI library
+- `Vite` – Frontend build tool
+- `TailwindCSS`– Utility-first CSS framework
+- `UUID`– Unique ID generation for tasks
 
-## Cloning
+## Getting Started
+### Installation
 
-You can [clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) and install the dependencies with the following command
+Clone the repository and install the dependencies:
 
 ```
+$ git clone https://github.com/dnmore/task-manager.git
 $ npm install
 
 ```
+### Running the Application
 
-You can run the following command to start the application
+Start the development server using:
 
 ```
 $ npm run dev
 
 ```
 
+Visit the app at `http://localhost:3000/`.
+
 ## License
 
-MIT
+This project is licensed under the MIT License.
