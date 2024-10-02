@@ -11,7 +11,7 @@ const variants = {
   hidden: { opacity: 0 },
 };
 
-export default function Task({ task, editTask, deleteTask, toggleTask }) {
+export default function TaskItem({ task, editTask, deleteTask, toggleTask }) {
   return (
     <motion.div
       key={task.id}

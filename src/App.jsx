@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, updateTask, deleteTask, toggleStatus } from "./tasksSlice";
 import Modal from "./components/Modal";
 import Navigation from "./components/Navigation";
-import Task from "./components/Task"
+import TaskItem from "./components/TaskItem";
+
 
 import { motion } from "framer-motion";
 
@@ -238,7 +239,7 @@ export default function App() {
           ? tasks
               .filter((task) => task.priority.includes(filterPriority))
               .map((task) => (
-                <Task
+                <TaskItem
                   task={task}
                   key={task.id}
                   editTask={handleEditTask}
@@ -247,7 +248,7 @@ export default function App() {
                 />
               ))
           : tasks.map((task) => (
-              <Task
+              <TaskItem
                 task={task}
                 key={task.id}
                 editTask={handleEditTask}
