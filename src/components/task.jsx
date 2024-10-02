@@ -1,156 +1,74 @@
-import { useState } from "react";
-import { useContext } from "react";
-import { TasksDispatchContext } from "../contexts/TasksContext";
+import React from "react";
+import { motion } from "framer-motion";
 
-export default function Task({ task }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const dispatch = useContext(TasksDispatchContext);
+const variants = {
+  visible: {
+    opacity: 1,
+    scale: [1, 2, 2, 1, 1],
+    rotate: [0, 0, 270, 270, 0],
+    borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+  },
+  hidden: { opacity: 0 },
+};
 
-  let content;
-
-  if (isEditing) {
-    content = (
-      <div className="flex flex-col gap-2 pr-2">
-        <div className="flex flex-col gap-2">
-          <label>
-            <input
-              type="checkbox"
-              name="done"
-              className="h-4 w-4 accent-indigo-600"
-              checked={task.done}
-              onChange={(e) => {
-                dispatch({
-                  type: "changed",
-                  task: {
-                    ...task,
-                    done: e.target.checked,
-                  },
-                });
-              }}
-            />
-          </label>
-          <input
-            type="text"
-            name="text"
-            required
-            className="max-w-80 border border-gray-300 py-1.5 px-7 text-gray-900 text-base sm:text-sm sm:leading-6"
-            value={task.text}
-            onChange={(e) => {
-              dispatch({
-                type: "changed",
-                task: {
-                  ...task,
-                  text: e.target.value,
-                },
-              });
-            }}
-          />
-        </div>
-
-        <select
-          name="priority"
-          className="max-w-80 border border-gray-300 py-1.5 pl-7 pr-20 uppercase  text-gray-500 text-base sm:text-sm"
-          value={task.priority}
-          onChange={(e) => {
-            dispatch({
-              type: "changed",
-              task: {
-                ...task,
-                priority: e.target.value,
-              },
-            });
-          }}
-        >
-          <option value="high">high</option>
-          <option value="medium">medium</option>
-          <option value="low">low</option>
-        </select>
-
-        <input
-          type="date"
-          name="date"
-          required
-          className="max-w-80 border border-gray-300 py-1.5 pl-7 pr-20 text-gray-900  sm:text-sm sm:leading-6"
-          value={task.date}
-          onChange={(e) => {
-            dispatch({
-              type: "changed",
-              task: {
-                ...task,
-                date: e.target.value,
-              },
-            });
-          }}
-        />
-
-        <button
-          onClick={() => setIsEditing(false)}
-          className="w-28 h-8 uppercase font-medium tracking-wider bg-slate-500 text-white hover:opacity-80 "
-        >
-          Save
-        </button>
-      </div>
-    );
-  } else {
-    content = (
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
-          <label>
-            <input
-              type="checkbox"
-              name="done"
-              className="h-4 w-4 accent-indigo-600"
-              checked={task.done}
-              onChange={(e) => {
-                dispatch({
-                  type: "changed",
-                  task: {
-                    ...task,
-                    done: e.target.checked,
-                  },
-                });
-              }}
-            />
-          </label>
-          <p className="text-slate-700 capitalize text-sm"> {task.text}</p>
-        </div>
-
-        <p className="capitalize text-sm text-slate-700    ">
-          <span>priority: </span>
-          {task.priority}
-        </p>
-        <p className="text-sm text-slate-700 capitalize">
-          <span>due date: </span>
-
-          {task.date}
-        </p>
-
-        <button
-          type="button"
-          className="w-28 h-8 uppercase font-medium tracking-wider bg-yellow-500 text-white hover:opacity-80"
-          onClick={() => setIsEditing(true)}
-        >
-          Update
-        </button>
-      </div>
-    );
-  }
+export default function Task({ task, editTask, deleteTask, toggleTask }) {
   return (
-    <div className="py-4">
-      {content}
+    <motion.div
+      key={task.id}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.5 }}
+      className="max-w-xs flex flex-col  gap-4 my-2 py-6 px-4 border-2 border-pine-tree shadow-primary rounded-lg"
+    >
+      <div className="text-sm mb-8">
+        <p className="text-base font-semibold uppercase">Task: {task.text}</p>
+        <p>Priority: {task.priority}</p>
+        <p>Due Date: {task.dueDate}</p>
+      </div>
 
-      <button
-        type="button"
-        className="w-28 h-8 mt-2 uppercase font-medium tracking-wider bg-red-500 text-white hover:opacity-80"
-        onClick={() =>
-          dispatch({
-            type: "deleted",
-            id: task.id,
-          })
-        }
-      >
-        Delete
-      </button>
-    </div>
+      <div className="grid grid-cols-2 gap-4 place-items-end ">
+        <div className="flex flex-wrap gap-2">
+          <motion.button
+            onClick={() => editTask(task)}
+            whileHover={{ scale: 1.1 }}
+            className="w-28 h-8 uppercase font-medium tracking-wider bg-maize border-2 border-pine-tree rounded-xl shadow-primary"
+          >
+            Edit
+          </motion.button>
+          <motion.button
+            onClick={() => deleteTask(task.id)}
+            whileHover={{ scale: 1.1 }}
+            className="w-28 h-8  uppercase font-medium tracking-wider bg-french-rose  border-2 border-pine-tree rounded-xl shadow-primary"
+          >
+            Delete
+          </motion.button>
+          {!task.done ? (
+            <motion.button
+              onClick={() => toggleTask(task.id)}
+              whileHover={{ scale: 1.1 }}
+              className="w-28 h-8  uppercase font-medium tracking-wider bg-light-gray border-2 border-pine-tree rounded-xl shadow-primary"
+            >
+              To Do
+            </motion.button>
+          ) : (
+            <motion.button
+              onClick={() => toggleTask(task.id)}
+              whileHover={{ scale: 1.1 }}
+              className="w-28 h-8  uppercase font-medium tracking-wider bg-jungle-green border-2 border-pine-tree rounded-xl shadow-primary"
+            >
+              Done
+            </motion.button>
+          )}
+        </div>
+
+        <motion.div
+          className="text-2xl h-12 w-12 grid place-content-center  border-2 border-pine-tree bg-pale-magenta"
+          animate={task.done ? "visible" : "hidden"}
+          variants={variants}
+        >
+          ✔️
+        </motion.div>
+      </div>
+    </motion.div>
   );
 }

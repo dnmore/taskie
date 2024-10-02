@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Roboto Mono", monospace;
+  color: #282925;
+  background-color: #F9FAFB;
 }
 
+h1,
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+}
 
