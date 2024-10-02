@@ -31,6 +31,7 @@ export default function TaskItem({ task, editTask, deleteTask, toggleTask }) {
           <motion.button
             onClick={() => editTask(task)}
             whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 1.1 }}
             className="w-28 h-8 uppercase font-medium tracking-wider bg-maize border-2 border-pine-tree rounded-xl shadow-primary"
           >
             Edit
@@ -38,6 +39,7 @@ export default function TaskItem({ task, editTask, deleteTask, toggleTask }) {
           <motion.button
             onClick={() => deleteTask(task.id)}
             whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 1.1 }}
             className="w-28 h-8  uppercase font-medium tracking-wider bg-french-rose  border-2 border-pine-tree rounded-xl shadow-primary"
           >
             Delete
@@ -46,6 +48,7 @@ export default function TaskItem({ task, editTask, deleteTask, toggleTask }) {
             <motion.button
               onClick={() => toggleTask(task.id)}
               whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 1.1 }}
               className="w-28 h-8  uppercase font-medium tracking-wider bg-light-gray border-2 border-pine-tree rounded-xl shadow-primary"
             >
               To Do
@@ -54,6 +57,7 @@ export default function TaskItem({ task, editTask, deleteTask, toggleTask }) {
             <motion.button
               onClick={() => toggleTask(task.id)}
               whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 1.1 }}
               className="w-28 h-8  uppercase font-medium tracking-wider bg-jungle-green border-2 border-pine-tree rounded-xl shadow-primary"
             >
               Done

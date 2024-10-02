@@ -167,6 +167,10 @@ export default function App() {
               scale: 1.05,
               transition: { duration: 1 },
             }}
+            whileTap={{
+              scale: 1.05,
+              transition: { duration: 1 },
+            }}
             whileInView={{ opacity: 1 }}
             className="w-72 md:w-80 rounded-xl shadow-primary py-2 uppercase font-medium tracking-wider  bg-maize  border-2 border-pine-tree"
           >
@@ -177,6 +181,10 @@ export default function App() {
             onClick={handleCreateTask}
             initial={{ opacity: 0.6 }}
             whileHover={{
+              scale: 1.05,
+              transition: { duration: 1 },
+            }}
+            whileTap={{
               scale: 1.05,
               transition: { duration: 1 },
             }}
@@ -210,6 +218,10 @@ export default function App() {
           onClick={openModal}
           initial={{ opacity: 0.6 }}
           whileHover={{
+            scale: 1.1,
+            transition: { duration: 1 },
+          }}
+          whileTap={{
             scale: 1.1,
             transition: { duration: 1 },
           }}
