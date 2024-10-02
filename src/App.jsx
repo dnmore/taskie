@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, updateTask, deleteTask, toggleStatus } from "./tasksSlice";
 import Modal from "./components/Modal";
 import Navigation from "./components/Navigation";
-import Task from "./components/Task";
+import Task from "./components/Task"
 
 import { motion } from "framer-motion";
 
