@@ -2,7 +2,7 @@
 
 ## Overview
 
-Taskie is a task management application that helps users organize their tasks with a fun and engaging twist. The app allows users to create, edit, delete, and filter tasks by priority while earning points and leveling up based on task completion. Taskie uses a neo-brutalist design style to provide a bold and striking visual experience, along with gamification features to make task management more rewarding.Task data is stored locally using the browser’s localStorage.
+Taskie is a task management application that helps users organize their tasks with a fun and engaging twist. The app allows users to create, edit, delete, and filter tasks by priority while earning points and leveling up based on task completion. Taskie uses a neo-brutalist design style to provide a bold and striking visual experience, along with gamification features to make task management more rewarding. Task data is stored locally using the browser’s localStorage.
 
  [Live Demo](https://taskie-task-manager.netlify.app/)
 
@@ -10,13 +10,13 @@ Taskie is a task management application that helps users organize their tasks wi
 
 - **Task Creation & Editing**: Users can create, edit, and delete tasks with assigned priorities (low, medium, high) and due dates.
 - **Points System**: Earn points based on task priority when completing tasks:
-* Low Priority: +10 points
-* Medium Priority: +20 points
-* High Priority: +30 points
+  Low Priority: +10 points
+  Medium Priority: +20 points
+  High Priority: +30 points
 - **Levels**: As users accumulate points, they unlock new levels:
-* Taskie Novice: 0 – 99 points
-* Taskie Pro: 100 – 299 points
-* Taskie Guru: 300+ points
+  Taskie Novice: 0 – 99 points
+  Taskie Pro: 100 – 299 points
+  Taskie Guru: 300+ points
 - **Filters**: Filter tasks by priority (Low, Medium, High).
 - **Modals**: Modals are used for creating/editing tasks and displaying game rules.
 - **Progress** Bar: Shows progress toward the next level.
