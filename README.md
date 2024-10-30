@@ -2,7 +2,9 @@
 
 ## Overview
 
-Taskie is a task management application that helps users organize their tasks with a fun and engaging twist. The app allows users to create, edit, delete, and filter tasks by priority while earning points and leveling up based on task completion. Taskie uses a neo-brutalist design style to provide a bold and striking visual experience, along with gamification features to make task management more rewarding. Task data is stored locally using the browser’s localStorage.
+Taskie transforms task management into an engaging experience, making productivity feel less like work and more like a game. This app aims to help users organize their tasks in a visually engaging way, combining effective task prioritization with gamified elements that motivate users to keep going.
+
+Many users struggle with motivation in managing tasks effectively. By blending gamification with a clean, bold design, Taskie aims to make task tracking and completion more rewarding, addressing the need for a task management solution that encourages consistent productivity.
 
  [Live Demo](https://taskie-task-manager.netlify.app/)
 
@@ -19,8 +21,9 @@ Taskie is a task management application that helps users organize their tasks wi
   Taskie Guru: 300+ points
 - **Filters**: Filter tasks by priority (Low, Medium, High).
 - **Modals**: Modals are used for creating/editing tasks and displaying game rules.
-- **Progress** Bar: Shows progress toward the next level.
+- **Progress Bar**: Shows progress toward the next level.
 - **Gamification**: Unlock levels, badges, and celebrate task completion with animated feedback using Framer Motion.
+
 
 ## Tech Stack 🛠️
 
@@ -29,6 +32,7 @@ Taskie is a task management application that helps users organize their tasks wi
 - `Framer Motion` – For animations (button hovers, task completion badge animation, and modal fade-ins).
 - `TailwindCSS`– For styling and layout.
 - `UUID`– For generating unique IDs for tasks.
+- `LocalStorage` - For data persistence.
 
 ## Animations and Effects 🎨
 
