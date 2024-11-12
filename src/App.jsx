@@ -143,6 +143,7 @@ export default function App() {
         />
         <select
           value={priority}
+          aria-label="priority"
           onChange={(e) => setPriority(e.target.value)}
           className="w-72 md:w-80  border border-pine-tree py-1.5 pl-1 pr-20 my-2  uppercase   placeholder:text-gray-400  sm:text-sm sm:leading-6"
         >
