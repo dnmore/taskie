@@ -28,6 +28,7 @@ Many users struggle with motivation in managing tasks effectively. By blending g
 ## Tech Stack 🛠️
 
 - `React`– For building the user interface.
+- `TypeScript` – Enhances the project with static typing, improving code quality and maintainability.
 - `Redux` - For state management.
 - `Framer Motion` – For animations (button hovers, task completion badge animation, and modal fade-ins).
 - `TailwindCSS`– For styling and layout.
