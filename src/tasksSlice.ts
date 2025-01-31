@@ -1,35 +1,43 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
+import { Task } from "./types/definitions";
 
-const initialState = {
-  tasks: JSON.parse(localStorage.getItem("tasks")) || [],
-  points: JSON.parse(localStorage.getItem("points")) || 0,
+interface TasksState {
+  tasks: Task[];
+  points: number;
+}
+
+const initialState: TasksState = {
+  tasks: JSON.parse(localStorage.getItem("tasks")|| "[]") ,
+  points: JSON.parse(localStorage.getItem("points")|| "0") ,
 };
 
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    addTask: (state, action) => {
-      const newTask = { id: uuidv4(), ...action.payload };
+    addTask: (state, action: PayloadAction<Omit<Task, "id">>) => {
+      const newTask: Task = { id: uuidv4(), ...action.payload };
       state.tasks.push(newTask);
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
-    updateTask: (state, action) => {
+    updateTask: (state, action: PayloadAction<Task>) => {
       const index = state.tasks.findIndex(
-        (task) => task.id === action.payload.id
+        (task: Task) => task.id === action.payload.id
       );
       if (index !== -1) {
         state.tasks[index] = { ...state.tasks[index], ...action.payload };
         localStorage.setItem("tasks", JSON.stringify(state.tasks));
       }
     },
-    deleteTask: (state, action) => {
-      state.tasks = state.tasks.filter((task) => task.id != action.payload);
+    deleteTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter(
+        (task: Task) => task.id != action.payload
+      );
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
-    toggleStatus: (state, action) => {
-      const task = state.tasks.find((task) => task.id === action.payload);
+    toggleStatus: (state, action: PayloadAction<string>) => {
+      const task = state.tasks.find((task: Task) => task.id === action.payload);
       if (task) {
         task.done = !task.done;
 

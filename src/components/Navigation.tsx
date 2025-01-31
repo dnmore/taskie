@@ -1,10 +1,14 @@
-import React from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 import { motion } from "framer-motion";
 
-export default function Navigation({ onOpenRules }) {
-  const totalPoints = useSelector((state) => state.tasks.points);
+type NavigationProps = {
+  onOpenRules: () => void;
+};
+
+const Navigation: React.FC<NavigationProps> = ({ onOpenRules }) => {
+  const totalPoints = useSelector((state:RootState) => state.tasks.points);
   return (
     <motion.div
       initial={{ x: -200 }}
@@ -28,4 +32,6 @@ export default function Navigation({ onOpenRules }) {
       </div>
     </motion.div>
   );
-}
+};
+
+export default Navigation;

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./store/store";
+import { Task } from "./types/definitions";
 
 import { addTask, updateTask, deleteTask, toggleStatus } from "./tasksSlice";
 import Modal from "./components/Modal";
@@ -11,17 +13,18 @@ import { motion } from "framer-motion";
 
 
 export default function App() {
-  const tasks = useSelector((state) => state.tasks.tasks);
-  const totalPoints = useSelector((state) => state.tasks.points);
-  const dispatch = useDispatch();
+  const tasks = useSelector((state:RootState) => state.tasks.tasks);
+  let totalPoints = useSelector((state:RootState) => state.tasks.points);
+  const dispatch = useDispatch<AppDispatch>();
 
   const [modalIsOpen, setIsModalOpen] = useState(false);
   const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
   const [taskText, setTaskText] = useState("");
   const [priority, setPriority] = useState("🌿 low");
   const [dueDate, setDueDate] = useState("");
-  const [filterPriority, setFilterPriority] = useState("");
-  const [taskIdToUpdate, setTaskIdToUpdate] = useState(null);
+  const [done, setDone] = useState(false)
+  const [filterPriority, setFilterPriority] = useState("all");
+  const [taskIdToUpdate, setTaskIdToUpdate] = useState("");
   const [errorText, setErrorText] = useState(false);
   const [errorDate, setErrorDate] = useState(false);
 
@@ -47,7 +50,7 @@ export default function App() {
   // Helper function to reset the form
   const resetForm = () => {
     setTaskText(""), setPriority("🌿 low"), setDueDate("");
-    setTaskIdToUpdate(null);
+    setTaskIdToUpdate("");
     setErrorText(false);
     setErrorDate(false);
   };
@@ -72,11 +75,13 @@ export default function App() {
   };
 
   // Handle editing a task (loads task details into the form)
-  const handleEditTask = (task) => {
+  const handleEditTask = (task:Task) => {
     setTaskIdToUpdate(task.id);
     setTaskText(task.text);
     setPriority(task.priority);
     setDueDate(task.dueDate);
+    setDone(task.done);
+    
     openModal();
   };
 
@@ -95,6 +100,7 @@ export default function App() {
         text: taskText,
         priority: priority,
         dueDate: dueDate,
+        done: done,
       };
       dispatch(updateTask(updatedTask));
       closeModal();
@@ -102,12 +108,12 @@ export default function App() {
   };
 
   // Handle deleting a task
-  const handleDeleteTask = (taskId) => {
+  const handleDeleteTask = (taskId:string) => {
     dispatch(deleteTask(taskId));
   };
 
   // Handle marking a task as completed
-  const handleToggleTask = (taskId) => {
+  const handleToggleTask = (taskId:string) => {
     dispatch(toggleStatus(taskId));
   };
 
@@ -250,8 +256,8 @@ export default function App() {
       <div className="mt-2 flex flex-wrap px-6 gap-4">
         {filterPriority && filterPriority !== "all"
           ? tasks
-              .filter((task) => task.priority.includes(filterPriority))
-              .map((task) => (
+              .filter((task:Task) => task.priority.includes(filterPriority))
+              .map((task:Task) => (
                 <TaskItem
                   task={task}
                   key={task.id}
@@ -260,7 +266,7 @@ export default function App() {
                   toggleTask={handleToggleTask}
                 />
               ))
-          : tasks.map((task) => (
+          : tasks.map((task:Task) => (
               <TaskItem
                 task={task}
                 key={task.id}

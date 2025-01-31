@@ -1,5 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Task } from "../types/definitions";
+
+type TaskItemProps = {
+  task: Task,
+  editTask: (task:Task) => void,
+  deleteTask: (task:Task["id"]) => void,
+  toggleTask: (task:Task["id"]) => void,
+
+}
 
 const variants = {
   visible: {
@@ -11,7 +20,7 @@ const variants = {
   hidden: { opacity: 0 },
 };
 
-export default function TaskItem({ task, editTask, deleteTask, toggleTask }) {
+const TaskItem: React.FC<TaskItemProps> = ({ task, editTask, deleteTask, toggleTask }) => {
   return (
     <motion.div
       key={task.id}
@@ -76,3 +85,6 @@ export default function TaskItem({ task, editTask, deleteTask, toggleTask }) {
     </motion.div>
   );
 }
+
+
+export default TaskItem;

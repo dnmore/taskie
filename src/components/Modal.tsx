@@ -1,5 +1,13 @@
 import { motion } from "framer-motion";
-export default function Modal({ isOpen, onClose, children }) {
+import { ReactNode } from "react";
+
+type ModalProps= {
+  isOpen:boolean,
+  onClose: () => void,
+  children: ReactNode
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
@@ -26,3 +34,6 @@ export default function Modal({ isOpen, onClose, children }) {
     </div>
   );
 }
+
+
+export default Modal;
